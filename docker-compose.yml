@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  mysql:
+    build: ./docker/mysql
+    restart: always
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=culqui_db
+    ports:
+       - "3306:3306"
+    networks:
+      - culqinet
+
+  redis:
+    build: ./docker/redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+    networks:
+      - culqinet
+
+networks:
+  culqinet:
+    driver: "bridge"
+
+volumes:
+  redis-data:
