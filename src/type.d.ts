@@ -1,4 +1,4 @@
-export type TokenType = {
+export type CardType = {
   email: string
   card_number: number
   cvv: number
@@ -12,3 +12,8 @@ export type AnswerItem = {
 }
 
 export type AnswerChain = Array<AnswerItem>;
+
+export type CredentialType = {
+  tokenKey: string
+  cardBody: CardType
+}
