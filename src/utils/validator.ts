@@ -57,6 +57,37 @@ export default class Validator {
     return this;
   }
 
+  /**
+   * Algoritmo LUHN
+   * @param cardNumber 
+   * @returns 
+   */
+  cardValid(errorMessage: string | null): Validator {
+    const digits = this.value.toString().split('').map(Number);
+    digits.reverse();
+
+    let sum = 0;
+    let double = false;
+
+    for (let digit of digits) {
+      if (double) {
+        digit *= 2;
+        if (digit >= 10) {
+          digit -= 9;
+        }
+      }
+      sum += digit;
+      double = !double;
+    }
+
+    this.answerChain.push({
+      errorMessage,
+      error: !(sum % 10 === 0),
+    } as AnswerItem);
+
+    return this;
+  }
+
   gt(value: number, errorMessage: string | null): Validator {
     this.answerChain.push({
       errorMessage,
