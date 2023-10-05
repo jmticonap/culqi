@@ -12,7 +12,7 @@ describe('Validator', () => {
       expiration_month: '09'
     } as TokenType;
     const validator = new Validator();
-    validator.requireds(incomingData, ['email'], null);
+    validator.requireds(incomingData, [{field: 'email', errorMessage: ''}]);
 
     expect(validator.getError()).toBeFalsy();
   });
@@ -25,7 +25,7 @@ describe('Validator', () => {
       expiration_year: '2025'
     } as TokenType;
     const validator = new Validator();
-    validator.requireds(incomingData, ['expiration_month'], null);
+    validator.requireds(incomingData, [{field: 'expiration_month', errorMessage: ''}]);
 
     expect(validator.getError()).toBeTruthy();
   });
@@ -54,7 +54,7 @@ describe('Validator', () => {
     expect(validator.getError()).toBeFalsy();
   });
 
-  test('Validate email: minLength', () => {
+  test('Validate email: maxLength', () => {
     const validator = new Validator();
     validator
       .setValue('a@gmail.com')

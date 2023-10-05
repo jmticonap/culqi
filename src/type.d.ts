@@ -1,9 +1,9 @@
 export type TokenType = {
-  email: string|null
-  card_number: number|null
-  cvv: number|null
-  expiration_year: string|null
-  expiration_month: string|null
+  email: string
+  card_number: number
+  cvv: number
+  expiration_year: string
+  expiration_month: string
 };
 
 export type AnswerItem = {

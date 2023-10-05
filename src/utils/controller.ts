@@ -1,7 +1,7 @@
-import { IncomingMessage } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 
-export default async <ReqType>(req: IncomingMessage): Promise<ReqType | Error> => {
-  return new Promise<ReqType | Error>((resolve, reject) => {
+export default async <ReqType>(req: IncomingMessage): Promise<ReqType> => {
+  return new Promise<ReqType>((resolve, reject) => {
     let body = '';
 
     req.on('data', (chunk: Buffer) => {
@@ -21,4 +21,11 @@ export default async <ReqType>(req: IncomingMessage): Promise<ReqType | Error> =
       reject(error);
     });
   });
+};
+
+export const errorResponse = (error: unknown, res: ServerResponse) => {
+  res.writeHead(400, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      error
+    }));
 };
