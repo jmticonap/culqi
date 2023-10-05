@@ -6,16 +6,24 @@ export default class Router {
   private routes: Record<string, RouteHandler> = {};
 
   get(route: string, handler: RouteHandler) {
+    console.log('GET', {route});
     this.routes[`GET ${route}`] = handler;
   }
 
   post(route: string, handler: RouteHandler) {
+    console.log('POST', {route});
     this.routes[`POST ${route}`] = handler;
   }
 
   async route(req: IncomingMessage, res: ServerResponse) {
     const { method, url } = req;
-    const routeKey = `${method} ${url}`;
+
+    let routeKey = '';
+    if (url?.includes('?')) {
+      routeKey = `${method} ${url?.split('?')[0]}`;
+    } else {
+      routeKey = `${method} ${url}`;
+    }
 
     const handler = this.routes[routeKey];
 
