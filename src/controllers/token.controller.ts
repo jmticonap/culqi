@@ -83,7 +83,6 @@ export default class TokenController {
       pk = this.tokenService.validatePk(req);
       console.log(`The PK it's there: ${pk}`);
     } catch (error) {
-      console.error("ERROR:", String(error));
       errorResponse(error, res);
       return;
     }
